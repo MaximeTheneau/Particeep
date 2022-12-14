@@ -14,6 +14,9 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.18.0",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
+    "@redux-devtools/core": "^3.13.1",
+    "@redux-devtools/dock-monitor": "^3.0.1",
+    "@redux-devtools/log-monitor": "^4.0.1",
     "babel-loader": "^8.2.5",
     "bundle-stats-webpack-plugin": "^3.3.9",
     "clean-webpack-plugin": "^4.0.0",
@@ -48,9 +51,15 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
+    "audit": "^0.0.6",
+    "loader-utils": "^3.2.1",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9"
   },
   "version": "1.0.0",
   "description": "modele site react",
