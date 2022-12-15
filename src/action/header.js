@@ -5,6 +5,7 @@ export function toogleNavbar() {
     type: TOGGLE_NAVBAR,
   };
 }
+
 export const TOGGLE_NAVBAR_SUBTITLE = "TOGGLE_NAVBAR_SUBTITLE";
 
 export function toogleNavbarSubtitle() {
