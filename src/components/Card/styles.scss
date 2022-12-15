@@ -1,0 +1,34 @@
+@use './src/styles/vars';
+
+.cards{
+  width: vars.$width-general;
+  margin: auto;
+    &__movies{
+        width: 100%;
+        padding: 0.2rem;
+        &__likes{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        &__select{
+            width: 100%;
+        }
+
+    }
+}
+@media screen and (min-width: 720px) {
+  .cards{
+    width: vars.$width-general--720;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    &__movies{
+        width: 33%;
+    }
+  }
+    
+}
+
+@media screen and (min-width: 1120px) {
+}
