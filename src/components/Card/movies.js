@@ -8,17 +8,17 @@ function Movies({
   title, category, likes, dislikes, id,
 }) {
   const dispatch = useDispatch();
-  const [newLikes, setNewLikes] = useState(true);
+  const [toogleLikes, setNewLikes] = useState(true);
 
   const moviesState = useSelector((state) => state.movies.movies);
   const categoryData = ["Animation", "Comedy", "Drame", "Thriller"];
   const handleClickLike = (likesEvent, idEvent) => {
-    setNewLikes(!newLikes);
+    setNewLikes(!toogleLikes);
     const newMovies = moviesState.map((movie) => {
       if (movie.id === idEvent) {
         return {
           ...movie,
-          likes: newLikes ? likesEvent + 1 : likesEvent - 1,
+          likes: toogleLikes ? likesEvent + 1 : likesEvent - 1,
         };
       }
       return movie;
@@ -27,18 +27,21 @@ function Movies({
   };
 
   const handleClickDislike = (dislikesEvent, idEvent) => {
-    setNewLikes(!newLikes);
+    setNewLikes(!toogleLikes);
     const newMovies = moviesState.map((movie) => {
       if (movie.id === idEvent) {
         return {
           ...movie,
-          dislikes: newLikes ? dislikesEvent + 1 : dislikesEvent - 1,
+          dislikes: toogleLikes ? dislikesEvent + 1 : dislikesEvent - 1,
         };
       }
       return movie;
     });
     dispatch(newMoviesActionAction(newMovies));
   };
+
+
+
   return (
     <div className="cards__movies">
       <h2>{title}</h2>
@@ -61,7 +64,11 @@ function Movies({
           <span>{dislikes}</span>
         </button>
       </div>
-      <select className="cards__movies__select" multiple>
+      <select
+        className="cards__movies__select"
+        onChange={handleChangeSelect}
+        multiple
+      >
         {categoryData.map((categoryItem) => (
           <option value={categoryItem}>{categoryItem}</option>
         ))}
