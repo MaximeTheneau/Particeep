@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovies } from "../../action/movies";
-import Card from "../Card/card";
+import Movies from "../Card/movies";
 
 import "./styles.css";
 
@@ -14,20 +14,21 @@ function App() {
   }, []);
 
   const moviesData = useSelector((state) => state.movies.movies);
-
   return (
-    <div className="app">
+    <>
       <h1>Particeep</h1>
-      {moviesData.map((movie) => (
-        <Card
-          key={movie.id}
-          title={movie.title}
-          category={movie.category}
-          likes={movie.likes}
-          dislikes={movie.dislikes}
-        />
-      ))}
-    </div>
+      <div className="cards">
+        {moviesData.map((movie) => (
+          <Movies
+            key={movie.id}
+            title={movie.title}
+            category={movie.category}
+            likes={movie.likes}
+            dislikes={movie.dislikes}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
