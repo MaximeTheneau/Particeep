@@ -1,21 +1,32 @@
 // == Import
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import reactLogo from "./react-logo.svg";
+import { fetchMovies } from "../../action/movies";
+import Card from "../Card/card";
+
 import "./styles.css";
 
 // == Composant
 function App() {
   const dispatch = useDispatch();
-  const increment = () => {
-    dispatch({ type: "counter/increment" });
-  };
-  increment();
-  const counter = useSelector((state) => state.counter);
-  console.log(counter);
+  useEffect(() => {
+    dispatch(fetchMovies());
+  }, []);
+
+  const moviesData = useSelector((state) => state.movies.movies);
+
   return (
     <div className="app">
-      <img src={reactLogo} alt="react logo" />
-      <h1>Composant : App</h1>
+      <h1>Particeep</h1>
+      {moviesData.map((movie) => (
+        <Card
+          key={movie.id}
+          title={movie.title}
+          category={movie.category}
+          likes={movie.likes}
+          dislikes={movie.dislikes}
+        />
+      ))}
     </div>
   );
 }
