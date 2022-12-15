@@ -1,5 +1,5 @@
 import "./styles.scss";
-
+import { BiLike, BiDislike, BiXCircle } from "react-icons/bi";
 
 function Movies({
   title, category, likes, dislikes,
@@ -11,11 +11,11 @@ function Movies({
       <h3>{category}</h3>
       <div className="cards__movies__likes">
         <div className="cards__movies__likes__item">
-          <i className="likes" />
+          <BiLike />
           <span>{likes}</span>
         </div>
         <div className="cards__movies__likes__item">
-          <i className="dislikes" />
+          <BiDislike />
           <span>{dislikes}</span>
         </div>
       </div>
@@ -24,7 +24,10 @@ function Movies({
           <option value={categoryItem}>{categoryItem}</option>
         ))}
       </select>
-      <span className="cards__movies__delete">Delete</span>
+      <div className="cards__movies__delete">
+        <BiXCircle />
+        <span> Delete</span>
+      </div>
     </div>
   );
 }
