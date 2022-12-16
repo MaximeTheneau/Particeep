@@ -1,7 +1,17 @@
-import { NEW_MOVIES_ACTION, SAVE_MOVIES } from "../action/movies";
+import {
+  CHANGE_CATEGORY, DELETE_MOVIES, NEW_MOVIES_ACTION, SAVE_MOVIES,
+} from "../action/movies";
 
 export const initialState = {
-  movies: [],
+  movies: [
+    {
+      id: "",
+      title: "",
+      category: "",
+      likes: 0,
+      dislikes: 0,
+    },
+  ],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -15,6 +25,22 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         movies: action.movies,
+      };
+    case DELETE_MOVIES:
+      return {
+        movies: state.movies,
+      };
+      return {
+        ...state,
+        movies: state.movies.map((movie) => {
+          if (movie.id === action.movie.id) {
+            return {
+              ...movie,
+              category: action.movie.category,
+            };
+          }
+          return movie;
+        }),
       };
     default:
       return state;

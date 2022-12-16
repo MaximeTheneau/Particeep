@@ -17,9 +17,30 @@ export function fetchMovies() {
 
 export const NEW_MOVIES_ACTION = "NEW_MOVIES_ACTION";
 
-export function newMoviesActionAction(newMovies) {
+export function newMoviesAction(newMovies) {
   return {
     movies: newMovies,
     type: NEW_MOVIES_ACTION,
+  };
+}
+
+export const DELETE_MOVIES = "DELETE_MOVIES";
+
+export function deleteMovies(index) {
+  return {
+    type: DELETE_MOVIES,
+    movies: index,
+  };
+}
+
+export const CHANGE_CATEGORY = "CHANGE_CATEGORY";
+
+export function changeCategory(category, id) {
+  return {
+    type: CHANGE_CATEGORY,
+    movies: {
+      category: category,
+      id: id,
+    },
   };
 }

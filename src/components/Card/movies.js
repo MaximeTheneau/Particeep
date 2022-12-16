@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import "./styles.scss";
 import { useState } from "react";
 import { BiLike, BiDislike, BiXCircle } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { newMoviesActionAction } from "../../action/movies";
+import { filter, includes } from "lodash";
+import { changeCategory, deleteMovies, newMoviesAction } from "../../action/movies";
+import CheckboxSelect from "./selected";
 
 function Movies({
   title, category, likes, dislikes, id,
@@ -11,7 +14,6 @@ function Movies({
   const [toogleLikes, setNewLikes] = useState(true);
 
   const moviesState = useSelector((state) => state.movies.movies);
-  const categoryData = ["Animation", "Comedy", "Drame", "Thriller"];
   const handleClickLike = (likesEvent, idEvent) => {
     setNewLikes(!toogleLikes);
     const newMovies = moviesState.map((movie) => {
@@ -23,7 +25,7 @@ function Movies({
       }
       return movie;
     });
-    dispatch(newMoviesActionAction(newMovies));
+    dispatch(newMoviesAction(newMovies));
   };
 
   const handleClickDislike = (dislikesEvent, idEvent) => {
@@ -37,15 +39,12 @@ function Movies({
       }
       return movie;
     });
-    dispatch(newMoviesActionAction(newMovies));
+    dispatch(newMoviesAction(newMovies));
   };
-
-
 
   return (
     <div className="cards__movies">
       <h2>{title}</h2>
-      <h3>{category}</h3>
       <div className="cards__movies__likes">
         <button
           className="cards__movies__likes__item"
@@ -64,16 +63,11 @@ function Movies({
           <span>{dislikes}</span>
         </button>
       </div>
-      <select
-        className="cards__movies__select"
-        onChange={handleChangeSelect}
-        multiple
+      <CheckboxSelect id={id} category={category} />
+      <div
+        onClick={() => dispatch(deleteMovies(id))}
+        className="cards__movies__delete"
       >
-        {categoryData.map((categoryItem) => (
-          <option value={categoryItem}>{categoryItem}</option>
-        ))}
-      </select>
-      <div className="cards__movies__delete">
         <BiXCircle />
         <span> Delete</span>
       </div>
