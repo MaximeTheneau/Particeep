@@ -1,4 +1,4 @@
-import { CHANGE_CATEGORY, FETCH_MOVIES, saveMovies } from "../action/movies";
+import { CHANGE_CATEGORY, DELETE_MOVIES, FETCH_MOVIES, saveMovies } from "../action/movies";
 import { movies$ } from "../data/movies";
 
 const moviesMiddleware = (store) => (next) => (action) => {
@@ -44,6 +44,16 @@ const moviesMiddleware = (store) => (next) => (action) => {
           // console.log("finally");
         },
       );
+      return next(action);
+    }
+    case DELETE_MOVIES: {
+      const { id } = action.movies;
+      movies$.then(
+        (movies) => {
+          console.log(movies);
+          const newMovies = movies.filter((movie) => movie.id !== id);
+          store.dispatch(saveMovies(newMovies));
+        });
 
       return next(action);
     }
