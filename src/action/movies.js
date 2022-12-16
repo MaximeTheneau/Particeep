@@ -29,7 +29,9 @@ export const DELETE_MOVIES = "DELETE_MOVIES";
 export function deleteMovies(index) {
   return {
     type: DELETE_MOVIES,
-    movies: index,
+    movies: {
+      id: index,
+    },
   };
 }
 
