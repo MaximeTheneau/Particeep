@@ -20,7 +20,7 @@ const moviesMiddleware = (store) => (next) => (action) => {
       return next(action);
     }
     case CHANGE_CATEGORY: {
-      const { category, id } = action.movie;
+      const { category, id } = action.movies;
       console.log(category, id);
       movies$.then(
         (movies) => {
@@ -28,7 +28,7 @@ const moviesMiddleware = (store) => (next) => (action) => {
             if (movie.id === id) {
               return {
                 ...movie,
-                category: category,
+                category: category.includes(category) ? category : "",
               };
             }
             return movie;

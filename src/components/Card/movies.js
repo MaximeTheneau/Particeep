@@ -42,16 +42,9 @@ function Movies({
     dispatch(newMoviesAction(newMovies));
   };
 
-  const handleChangeSelect = (event, idCategory) => {
-    console.log(event.target.selectedOptions);
-    const eventCategory = event.target.value;
-    dispatch(changeCategory(eventCategory, idCategory));
-  };
-
   return (
     <div className="cards__movies">
       <h2>{title}</h2>
-      <h3>{category}</h3>
       <div className="cards__movies__likes">
         <button
           className="cards__movies__likes__item"
@@ -71,7 +64,10 @@ function Movies({
         </button>
       </div>
       <CheckboxSelect id={id} category={category} />
-      <div className="cards__movies__delete">
+      <div
+        onClick={() => dispatch(deleteMovies(id))}
+        className="cards__movies__delete"
+      >
         <BiXCircle />
         <span> Delete</span>
       </div>

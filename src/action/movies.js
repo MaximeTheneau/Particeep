@@ -38,7 +38,7 @@ export const CHANGE_CATEGORY = "CHANGE_CATEGORY";
 export function changeCategory(category, id) {
   return {
     type: CHANGE_CATEGORY,
-    movie: {
+    movies: {
       category: category,
       id: id,
     },

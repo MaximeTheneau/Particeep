@@ -2,28 +2,41 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCategory } from "../../action/movies";
 
-function CheckboxSelect({ id }) {
-  const [selected, setSelected] = useState([]);
+function CheckboxSelect({ id, category }) {
   const useDispatchh = useDispatch();
-  const categoryState = useSelector((state) => state.movies.movies);
+  const [selectedToggle, setSelectedToggle] = useState(false);
 
   const handleChange = (event) => {
-    if (event.target.checked) {
-      useDispatchh(changeCategory([categoryState[id].category, event.target.value], id));
-    }
-    else {
-      useDispatchh(changeCategory(categoryState[id].category.filter((item) => item !== event.target.value), id));
-    }
+    useDispatchh(changeCategory(event.target.value, id));
   };
 
   const categoryDataFull = ["Animation", "Comedy", "Drame", "Thriller"];
   return (
-    <div>
-      {categoryDataFull.map((item) => (
-        <div key={item}>
-          <input type="checkbox" value={item} onChange={(event) => handleChange(event, id)} />
+    <div className="card__selected">
+      <div
+        className="card__selected__title"
+        onClick={() => {
+          setSelectedToggle(!selectedToggle);
+        }}
+      >
+        <button
+          className="card__selected__category checked"
+          type="button"
+        >
+          {category}
+        </button>
+        <h3>Selected category</h3>
+      </div>
+      {selectedToggle && categoryDataFull.map((item) => (
+        <button
+          key={item}
+          className={`${category === item ? "checked" : ""} card__select__item`}
+          onClick={(event) => handleChange(event)}
+          value={item}
+          type="button"
+        >
           {item}
-        </div>
+        </button>
       ))}
     </div>
   );
