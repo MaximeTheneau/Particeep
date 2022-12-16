@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import "./styles.scss";
 import { useState } from "react";
 import { BiLike, BiDislike, BiXCircle } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { newMoviesActionAction } from "../../action/movies";
+import { filter, includes } from "lodash";
+import { changeCategory, deleteMovies, newMoviesAction } from "../../action/movies";
+import CheckboxSelect from "./selected";
 
 function Movies({
   title, category, likes, dislikes, id,
@@ -11,7 +14,6 @@ function Movies({
   const [toogleLikes, setNewLikes] = useState(true);
 
   const moviesState = useSelector((state) => state.movies.movies);
-  const categoryData = ["Animation", "Comedy", "Drame", "Thriller"];
   const handleClickLike = (likesEvent, idEvent) => {
     setNewLikes(!toogleLikes);
     const newMovies = moviesState.map((movie) => {
@@ -23,7 +25,7 @@ function Movies({
       }
       return movie;
     });
-    dispatch(newMoviesActionAction(newMovies));
+    dispatch(newMoviesAction(newMovies));
   };
 
   const handleClickDislike = (dislikesEvent, idEvent) => {
@@ -37,10 +39,14 @@ function Movies({
       }
       return movie;
     });
-    dispatch(newMoviesActionAction(newMovies));
+    dispatch(newMoviesAction(newMovies));
   };
 
-
+  const handleChangeSelect = (event, idCategory) => {
+    console.log(event.target.selectedOptions);
+    const eventCategory = event.target.value;
+    dispatch(changeCategory(eventCategory, idCategory));
+  };
 
   return (
     <div className="cards__movies">
@@ -64,15 +70,7 @@ function Movies({
           <span>{dislikes}</span>
         </button>
       </div>
-      <select
-        className="cards__movies__select"
-        onChange={handleChangeSelect}
-        multiple
-      >
-        {categoryData.map((categoryItem) => (
-          <option value={categoryItem}>{categoryItem}</option>
-        ))}
-      </select>
+      <CheckboxSelect id={id} category={category} />
       <div className="cards__movies__delete">
         <BiXCircle />
         <span> Delete</span>

@@ -1,4 +1,4 @@
-import { FETCH_MOVIES, saveMovies } from "../action/movies";
+import { CHANGE_CATEGORY, FETCH_MOVIES, saveMovies } from "../action/movies";
 import { movies$ } from "../data/movies";
 
 const moviesMiddleware = (store) => (next) => (action) => {
@@ -17,6 +17,34 @@ const moviesMiddleware = (store) => (next) => (action) => {
           // console.log("finally");
         },
       );
+      return next(action);
+    }
+    case CHANGE_CATEGORY: {
+      const { category, id } = action.movie;
+      console.log(category, id);
+      movies$.then(
+        (movies) => {
+          const newMovies = movies.map((movie) => {
+            if (movie.id === id) {
+              return {
+                ...movie,
+                category: category,
+              };
+            }
+            return movie;
+          });
+          store.dispatch(saveMovies(newMovies));
+        },
+      ).catch(
+        (error) => {
+          console.log(error);
+        }, 
+      ).finally(
+        () => {
+          // console.log("finally");
+        },
+      );
+
       return next(action);
     }
 
